@@ -1,0 +1,134 @@
+swagger: "2.0"
+info:
+  description: This is the swagger file that goes with our server code
+  version: "1.0.0"
+  title: Swagger Rest Article
+consumes:
+  - application/json
+produces:
+  - application/json
+
+basePath: /api
+
+# Paths supported by the server application
+paths:
+  /student:
+    get:
+      operationId: student.read_all
+      tags:
+        - Student
+      summary: Read the entire list of student
+      description: Read the list of student
+      parameters:
+        - name: length
+          in: query
+          type: integer
+          description: Number of student to get from student
+          required: false
+        - name: offset
+          in: query
+          type: integer
+          description: Offset from beginning of list where to start gathering student
+          required: false
+      responses:
+        200:
+          description: Successfully read student list operation
+          schema:
+            type: array
+            items:
+              properties:
+                coursename:
+                  type: string
+                lecname:
+                  type: string
+                timestamp:
+                  type: string
+
+    post:
+      operationId: student.create
+      tags:
+        - Student
+      summary: Create a student and add it to the student list
+      description: Create a new student in the student list
+      parameters:
+        - name: student
+          in: body
+          description: student to create
+          required: True
+          schema:
+            type: object
+            properties:
+              coursename:
+                type: string
+                description: First name of student to create
+              lecname:
+                type: string
+                description: Last name of student to create
+      responses:
+        201:
+          description: Successfully created student in list
+
+  /student/{lecname}:
+    get:
+      operationId: student.read_one
+      tags:
+        - Student
+      summary: Read one student from the student list
+      description: Read one student from the student list
+      parameters:
+        - name: lecname
+          in: path
+          description: Last name of the student to get from the list
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully read student from student list operation
+          schema:
+            properties:
+              coursename:
+                type: string
+              lecname:
+                type: string
+              timestamp:
+                type: string
+
+    put:
+      operationId: student.update
+      tags:
+        - Student
+      summary: Update a student in the student list
+      description: Update a student in the student list
+      parameters:
+        - name: lecname
+          in: path
+          description: Last name of the student to update in the list
+          type: string
+          required: True
+        - name: student
+          in: body
+          schema:
+            type: object
+            properties:
+              coursename:
+                type: string
+              lecname:
+                type: string
+      responses:
+        200:
+          description: Successfully updated student in student list
+
+    delete:
+      operationId: student.delete
+      tags:
+        - Student
+      summary: Delete a student from the student list
+      description: Delete a student
+      parameters:
+        - name: lecname
+          in: path
+          type: string
+          required: True
+      responses:
+        200:
+          description: Successfully deleted a student from student list
