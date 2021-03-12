@@ -1,0 +1,37 @@
+version: 2.1
+
+
+orbs:
+  aws-ecr: circleci/aws-ecr@0.04
+
+workflows:
+  build_test_deploy:
+    jobs:
+      - build_test
+
+      -aws-ecr/build_and_push_image:
+        region: ${AWS_DEFAULT_REGION}
+        account-url: ${AWS_ECR_ACCOUNT_URL}
+        repo: student-management-ecr
+        tag: ${CIRCLE_SHA1}
+        requires:
+          - build_test
+
+jobs:
+  build_test:
+    docker:
+      - image: circleci/python:2.7.14
+      steps:
+        - checkout
+        - run:
+            name: Setup VirtualEnv
+            command:  |
+              virtualenv circlecicourse
+              . circlecicourse/bin/activate
+              pip install --no-cache-dir -r requirements.txt
+              pip install --no-cache-dir connexion[swagger]
+        - run:
+            name: Run Tests
+            command: |
+              . circlecicourse/bin/activate
+              python ./tests/unit_test_template.py
