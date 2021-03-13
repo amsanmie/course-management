@@ -20,7 +20,7 @@ workflows:
 jobs:
   build_test:
     docker:
-      - image: circleci/python:2.7.14
+      - image: course/python:2.7.14
       steps:
         - checkout
         - run:
