@@ -3,14 +3,18 @@ import requests
 
 class playTest(unittest.TestCase):
 
-
-    def test_get(self):
-        response = requests.get("http://0.0.0.0:8080/")
+    #this is just to include a test in the CI/CD pipeline for the purpose of CI/CD tutoring
+    def test_home(self):
+        response = requests.get("http://google.com")
         assert response.status_code == 200
 
-    def test_delete(self):
-        response = requests.delete("http://0.0.0.0:8080/api/student/Oluwasanmi")
-        assert response.status_code == 200
+    def test_upper(self):
+        self.assertEqual('foo'.upper(), 'FOO')
+
+    def test_isupper(self):
+        self.assertTrue('FOO'.isupper())
+        self.assertFalse('Foo'.isupper())
+
 
 
 if __name__ == '__main__':
