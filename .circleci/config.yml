@@ -9,13 +9,13 @@ workflows:
     jobs:
       - build_test
 
-      -aws-ecr/build_and_push_image:
-        region: ${AWS_DEFAULT_REGION}
-        account-url: ${AWS_ECR_ACCOUNT_URL}
-        repo: student-management-ecr
-        tag: ${CIRCLE_SHA1}
-        requires:
-          - build_test
+      - aws-ecr/build_and_push_image:
+          region: ${AWS_DEFAULT_REGION}
+          account-url: ${AWS_ECR_ACCOUNT_URL}
+          repo: student-management-ecr
+          tag: ${CIRCLE_SHA1}
+          requires:
+            - build_test
 
 jobs:
   build_test:
