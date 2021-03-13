@@ -20,8 +20,8 @@ workflows:
 jobs:
   build_test:
     docker:
-      - image: course/python:2.7.14
-      steps:
+      - image: circleci/python:2.7.14
+    steps:
         - checkout
         - run:
             name: Setup VirtualEnv
