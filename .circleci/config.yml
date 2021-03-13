@@ -2,7 +2,7 @@ version: 2.1
 
 
 orbs:
-  aws-ecr: circleci/aws-ecr@0.04
+  aws-ecr: circleci/aws-ecr@0.0.4
 
 workflows:
   build_test_deploy:
@@ -12,7 +12,7 @@ workflows:
       - aws-ecr/build_and_push_image:
           region: ${AWS_DEFAULT_REGION}
           account-url: ${AWS_ECR_ACCOUNT_URL}
-          repo: student-management-ecr
+          repo: course-management-ecr
           tag: ${CIRCLE_SHA1}
           requires:
             - build_test
@@ -29,7 +29,7 @@ jobs:
               virtualenv circlecicourse
               . circlecicourse/bin/activate
               pip install --no-cache-dir -r requirements.txt
-              pip install --no-cache-dir connexion[swagger]
+              pip install --no-cache-dir connexion[swagger-ui]
         - run:
             name: Run Tests
             command: |
