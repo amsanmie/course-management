@@ -9,7 +9,7 @@ class playTest(unittest.TestCase):
         assert response.status_code == 200
 
     def test_delete(self):
-        response = requests.delete("http://0.0.0.0:8080/api/student/Easter")
+        response = requests.delete("http://0.0.0.0:8080/api/student/Oluwasanmi")
         assert response.status_code == 200
 
 
